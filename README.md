@@ -48,7 +48,16 @@ if banInfo then
 end
 ```
 
-其他几个 IsXXXBanned 函数的用法与 IsSteamBanned 相同。
+其他几个函数的用法与 IsSteamBanned 相同。
+
+```lua
+IsLicenseBanned('license:xxxxxxxxxxxxxxxxxxxx')
+IsIpBanned('ip:xxx.xxx.xxx.xxx')
+IsDiscordBanned('discord:xxxxxxxxxxxx')
+IsXblBanned('xbl:xxxxxxxxxxxxxxx')
+IsLiveBanned('live:xxxxxxxxxxxxxxx')
+IsFivemBanned('fivem:xxxxxxxxx')
+```
 
 ### GetRawBanData
 获取原始的封禁数据，返回值为一个包含所有封禁信息的数组。
