@@ -1,6 +1,10 @@
 # GlobalBan
 GlobalBan 是一款基于联网同步数据的 FiveM 封禁系统，可以在多个服务器之间共享封禁数据，被封禁的玩家将无法进入所有安装了此插件的服务器。
 
+如果你想提交封禁信息，请创建一个 [Issue](https://github.com/kasuganosoras/globalban/issues) 或者 Fork 本项目然后提交 Pull Request。
+
+在提交封禁信息时，请提供封禁该玩家的理由，并且附带 1~3 张截图作为证据，后续如果该玩家发起申诉时将会以此 Issue 作为判断依据之一。
+
 ## 特性
 - 无需数据库，数据存储在 GitHub 中
 - 自动同步数据，支持自定义同步间隔
