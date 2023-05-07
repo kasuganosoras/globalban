@@ -15,15 +15,13 @@ Config = {
     updateApi      = "https://raw.githubusercontent.com/kasuganosoras/globalban/master/bans.json",
     
     -- 被踢出服务器的提示信息
-    banMessage     = "\n你已被国服联合封禁系统列为封禁用户，无法进入服务器，原因：%s\n" ..
-                     "如需申诉请前往 https://github.com/kasuganosoras/globalban/issues 提交 issue，并携带你的身份信息：\n" ..
-                     "==========================================\n%s\n" ..
-                     "==========================================\n" ..
-                     "（以上内容可鼠标拖选后 Ctrl+C 复制）\n",
+    banMessage     = "你已被国服联合封禁系统列为封禁用户，无法进入服务器，原因：%s<br>" ..
+                     "如需申诉请前往 https://github.com/kasuganosoras/globalban/issues 提交 issue，并携带你的身份信息：" ..
+                     "<ul style='margin-top:1em;margin-bottom:1em;'>%s</ul>" ..
+                     "（以上内容可鼠标拖选后 Ctrl+C 复制）",
     
     -- 本地封禁提示信息
-    localBanMsg    = "\n你已被服务器封禁，原因：%s\n如需申诉请联系服务器管理员，并携带你的身份信息：\n" ..
-                     "==========================================\n%s\n" ..
-                     "==========================================\n" ..
-                     "（以上内容可鼠标拖选后 Ctrl+C 复制）\n",
+    localBanMsg    = "你已被服务器封禁，原因：%s<br>如需申诉请联系服务器管理员，并携带你的身份信息：" ..
+                     "<ul style='margin-top:1em;margin-bottom:1em;'>%s</ul>" ..
+                     "（以上内容可鼠标拖选后 Ctrl+C 复制）",
 }

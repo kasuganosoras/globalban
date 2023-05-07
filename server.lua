@@ -261,7 +261,8 @@ function LocalBanPlayer(player, reason)
     table.insert(_g.localBanData, data)
     FilePutContent(string.format("%s/%s", _g.currentPath, Config.localBanData), json.encode(_g.localBanData))
     PrintLog("玩家 ^0%s^0 已被本地封禁", GetPlayerName(player))
-    DropPlayer(player, string.format(Config.localBanMsg, idTexts))
+    MergeLocalData()
+    DropPlayer(player, string.format(Config.localBanMsg, reason, idTexts))
     return true
 end
 
@@ -363,6 +364,21 @@ function LocalUnban(identifier)
     return false
 end
 
+function GetMessageTemplate(title, content, image)
+    content = string.gsub(content, "<code>", '<code style="background-color: rgba(0,0,0,0.3);padding: 2px 6px;border-radius: 8px;font-family: monospace;color: rgb(255,25,83);border: 2px solid rgba(255,255,255,0.15);">')
+    content = string.gsub(content, "\r", "")
+    content = string.gsub(content, "\n", "")
+    htmlData = [[<style>.globalban>ul>li{line-height: 1.75em;!important}</style><div onclick="console.log('test');" class="globalban" style="background-color: var(--color-modal-background);padding: 0px;margin-top: -13.5em;position: relative;margin-bottom: -2.5em;z-index: 999;min-height: 18em;"><h2 style="color: rgb(255,25,83);">{{TITLE}}</h2><br><div style="font-size: 1.05rem; padding: 0px; line-height: 1.75em">{{CONTENT}}</div>{{IMAGE}}</div>]]
+    htmlData = string.gsub(htmlData, "{{TITLE}}", title)
+    htmlData = string.gsub(htmlData, "{{CONTENT}}", content)
+    if image then
+        htmlData = string.gsub(htmlData, "{{IMAGE}}", string.format('<img src="%s" style="position: absolute; right: 15px; bottom: 15px; opacity: 25%;" />', image))
+    else
+        htmlData = string.gsub(htmlData, "{{IMAGE}}", "")
+    end
+    return htmlData
+end
+
 AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
     if not Config.rejectBanned or WasEventCanceled() then
         return
@@ -382,7 +398,7 @@ AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
         for _, v in pairs(identifiers) do
             if v then
                 i = i + 1
-                idTexts = idTexts .. v
+                idTexts = idTexts .. string.format("<li style='line-height: 1.75em;'><code>%s</code></li>", v)
                 if i ~= Count(identifiers) then
                     idTexts = idTexts .. "\n"
                 end
@@ -393,11 +409,11 @@ AddEventHandler("playerConnecting", function(name, setKickReason, deferrals)
         deferrals.update(string.format(Config.banMessage, isBanned.reason, idTexts))
         Wait(0)
         if not isBanned.isLocal then
-            deferrals.done(string.format(Config.banMessage, isBanned.reason, idTexts))
-            setKickReason(string.format(Config.banMessage, isBanned.reason, idTexts))
+            deferrals.done(GetMessageTemplate('连接被拒绝', string.format(Config.banMessage, isBanned.reason, idTexts)))
+            -- setKickReason(string.format(Config.banMessage, isBanned.reason, idTexts))
         else
-            deferrals.done(string.format(Config.localBanMsg, isBanned.reason, idTexts))
-            setKickReason(string.format(Config.localBanMsg, isBanned.reason, idTexts))
+            deferrals.done(GetMessageTemplate('连接被拒绝', string.format(Config.localBanMsg, isBanned.reason, idTexts)))
+            -- setKickReason(string.format(Config.localBanMsg, isBanned.reason, idTexts))
         end
         CancelEvent()
         return
