@@ -134,4 +134,4 @@ Config = {
 ```
 
 ## 许可
-本项目使用 GPT v3 协议开源，详情请见 [LICENSE](https://github.com/kasuganosoras/globalban/blob/master/LICENSE)。
+本项目使用 GPL v3 协议开源，详情请见 [LICENSE](https://github.com/kasuganosoras/globalban/blob/master/LICENSE)。
